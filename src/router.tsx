@@ -1,34 +1,46 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Login from './pages/Login';
+import Login from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Todo from './pages/Todo';
 import AuthLayout from './components/AuthLayout';
+import Home from './pages/Home';
 
 interface RouterItem {
   id: number;
   path: string;
   label: string;
   element: React.ReactNode;
+  loginChecked: boolean;
 }
 
 const routerDatas: RouterItem[] = [
   {
     id: 0,
-    path: '/signup',
-    label: '회원가입',
-    element: <SignUp />,
+    path: '/',
+    label: '홈페이지',
+    element: <Home />,
+    loginChecked: false,
   },
   {
     id: 1,
-    path: '/signin',
-    label: '로그인',
-    element: <Login />,
+    path: '/signup',
+    label: '회원가입',
+    element: <SignUp />,
+    loginChecked: true,
   },
   {
     id: 2,
+    path: '/signin',
+    label: '로그인',
+    element: <Login />,
+    loginChecked: true,
+  },
+  {
+    id: 3,
     path: '/todo',
     label: '투두리스트',
     element: <Todo />,
+    loginChecked: true,
   },
 ];
 
@@ -37,9 +49,15 @@ const routerDatas: RouterItem[] = [
 
 export const routers = createBrowserRouter(
   routerDatas.map((router: RouterItem) => {
+    if (router.loginChecked) {
+      return {
+        path: router.path,
+        element: <AuthLayout>{router.element}</AuthLayout>,
+      };
+    }
     return {
       path: router.path,
-      element: <AuthLayout>{router.element}</AuthLayout>,
+      element: router.element,
     };
   }),
 );

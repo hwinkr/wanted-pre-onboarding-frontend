@@ -3,7 +3,7 @@ import { useInput } from '../../components/Input';
 import { styled } from 'styled-components';
 import Button from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
-import { signup } from '../../apis/auth';
+import signUp from '../../apis/auth/sign-up';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -15,7 +15,6 @@ const SignUp = () => {
     testId: 'email-input',
     id: 'user-email',
     placeholder: '이메일을 입력해주세요.',
-    autoFocus: true,
     onFocus: () => setEmailFocus((prev) => !prev),
     onBlur: () => setEmailFocus((prev) => !prev),
   });
@@ -34,7 +33,7 @@ const SignUp = () => {
 
   const signupHanlder: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    const signupResult = await signup(email, password);
+    const signupResult = await signUp(email, password);
     if (signupResult !== 201) {
       alert(
         '동일한 이메일이 이미 존재하거나 서버에 문제가 발생했어요! 이메일을 다시한번 확인하고 잠시 후 다시 요청해주세요',

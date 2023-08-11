@@ -1,13 +1,9 @@
 import React from 'react';
 import useRouter from '../../hooks/useRouter';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { getTokenFromLocalStorage } from '../../apis/token';
 
-interface AuthLayoutProps {
-  children: React.ReactNode;
-}
-
-const AuthLayout = ({ children }: AuthLayoutProps) => {
+const AuthLayout = () => {
   const { current } = useRouter();
 
   if (current === '/todo' && !getTokenFromLocalStorage()) {
@@ -22,7 +18,11 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
     return <Navigate to="/todo" />;
   }
 
-  return <>{children}</>;
+  return (
+    <>
+      <Outlet />
+    </>
+  );
 };
 
 export default AuthLayout;

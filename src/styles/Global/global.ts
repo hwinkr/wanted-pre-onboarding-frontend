@@ -105,7 +105,13 @@ html,
   }
   body {
     line-height: 1;
-    min-height: 100vh;
+    height: 100vh;
+    max-width: 600px;
+    
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   ol,
   ul {

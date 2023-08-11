@@ -1,9 +1,9 @@
 import axios, { AxiosInstance } from 'axios';
-import env from '../config';
 import { getTokenFromLocalStorage } from './token';
+import SERVER_BASE_URL from '../constants/base-url';
 
 const http: AxiosInstance = axios.create({
-  baseURL: env.SERVER_URL,
+  baseURL: SERVER_BASE_URL,
   headers: { 'Content-Type': 'application/json' },
 });
 
